@@ -55,7 +55,13 @@
 
     /* ==== STEP 1: read the host page’s query-string ==== */
     const pageParams = new URLSearchParams(window.location.search);
-    if (!pageParams.has(PARAM_TO_FORWARD)) return;   // nothing to forward
+    if (!pageParams.has(PARAM_TO_FORWARD)) {
+      console.log(
+        `No query parameter "${PARAM_TO_FORWARD}" found in the host page URL.`
+      );
+      document.getElementById('tgb-embed').src = BASE_IFRAME_URL
+      return; // nothing to forward
+    }
 
     /* ==== STEP 2: build the new iframe URL ==== */
     const iframeURL = new URL(BASE_IFRAME_URL);
