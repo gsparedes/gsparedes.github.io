@@ -33,48 +33,16 @@
   <p>It will forward a specific query parameter to the iframe URL.</p>
   <div class="container">
     <h2>Embedded Content:</h2>
-    <!-- Container keeps your responsive 16:9 behaviour -->
-    <div style="position:relative;padding-bottom:177.78%;height:0;overflow:hidden;">
-      <!-- Leave src empty for now; we’ll set it via JS -->
+    <div style="position: relative; padding-bottom: 177.78%; height: 0; overflow: hidden;">
       <iframe
         id="tgb-embed"
-        style="position:absolute;top:0;left:0;width:100%;height:100%;"
+        src="https://pages-pt.tagboard.cloud/8l56CIn"
+        style="position: absolute; top: 0; left: 0;width: 100%; height: 100%;"
         frameborder="0"
-        allowfullscreen
-      ></iframe>
+        allowfullscreen>
+      </iframe>
     </div>
+    <script src="https://app.tagboard.cloud/src/assets/js/embed.js" defer></script>
   </div>
 </body>
 </html>
-
-<script>
-  (function () {
-    /* ==== CONFIG ==== */
-    const PARAM_TO_FORWARD = 'tgb_id'; // change to the query-string key you need
-    const BASE_IFRAME_URL  = 'https://pages-pt.tagboard.cloud/8l56CIn';
-
-    /* ==== STEP 1: read the host page’s query-string ==== */
-    const pageParams = new URLSearchParams(window.location.search);
-    if (!pageParams.has(PARAM_TO_FORWARD)) {
-      console.log(
-        `No query parameter "${PARAM_TO_FORWARD}" found in the host page URL.`
-      );
-      document.getElementById('tgb-embed').src = BASE_IFRAME_URL
-      return; // nothing to forward
-    }
-
-    /* ==== STEP 2: build the new iframe URL ==== */
-    const iframeURL = new URL(BASE_IFRAME_URL);
-    // Preserve any query params already in BASE_IFRAME_URL, then add/replace ours
-    iframeURL.searchParams.set(
-      PARAM_TO_FORWARD,
-      pageParams.get(PARAM_TO_FORWARD)
-    );
-
-    console.log(
-      `Forwarding query parameter "${PARAM_TO_FORWARD}" with value "${pageParams.get(PARAM_TO_FORWARD)}" to iframe URL: ${iframeURL}`
-    );
-    /* ==== STEP 3: assign the URL and load the iframe ==== */
-    document.getElementById('tgb-embed').src = iframeURL.toString();
-  })();
-</script>
